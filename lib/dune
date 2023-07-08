@@ -1,3 +1,22 @@
 (library
  (name admiral)
- (libraries sqlite3))
+ (libraries sqlite3 ctypes)
+ (ctypes
+  (external_library_name arch1)
+  (build_flags_resolver vendored)
+  (type_description
+   (instance Types)
+   (functor Type_description))
+  (function_description
+   (instance Functions)
+   (functor Function_description))
+  (generated_entry_point C))
+ (foreign_archives arch1))
+
+(rule
+  (deps (source_tree telescope-zf-native.nvim))
+  (targets dllarch1.so)
+  (action
+    (no-infer
+      (progn
+        (copy telescope-zf-native.nvim/lib/libzf-osx-arm64.so dllarch1.so)))))

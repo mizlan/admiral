@@ -1,4 +1,4 @@
 (executable
  (public_name admiral)
  (name main)
- (libraries admiral sqlite3))
+ (libraries admiral sqlite3 cmdliner))

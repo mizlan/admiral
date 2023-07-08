@@ -24,3 +24,9 @@ let mark db (path : string) =
   in
   let stmt = prepare db mark_sql in
   match bind_text stmt 1 path with Rc.OK -> step stmt | r -> r
+
+let get_all db =
+  let get_all_sql = "SELECT path, count, last_access FROM files" in
+  let stmt = prepare db get_all_sql in
+  let r = step stmt in
+  if Rc.is_success r then Ok (row_data stmt) else Error r
